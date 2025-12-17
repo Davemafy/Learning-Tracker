@@ -126,7 +126,7 @@ const Form = ({ record, courses, handleSubmit }) => {
             onChange={(e) => setStartTime(e.target.value)}
             onFocus={showStartTimePicker}
             required
-            className={`border border-grey rounded-2xl p-2 py-2 ${theme.current == "dark" ? "darkmode" : ""}`}
+            className={`max-w-24 border border-grey rounded-2xl p-2 py-2 ${theme.current == "dark" ? "darkmode" : ""}`}
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -143,7 +143,7 @@ const Form = ({ record, courses, handleSubmit }) => {
             onChange={(e) => setEndTime(e.target.value)}
             onFocus={showEndTimePicker}
             required
-            className={`border rounded-2xl p-2 py-2 border-grey ${theme.current == "dark" ? "darkmode" : ""} invalid:border-red-500 invalid:outline-red-500`}
+            className={`max-w-24 border rounded-2xl p-2 py-2 border-grey ${theme.current == "dark" ? "darkmode" : ""} invalid:border-red-500 invalid:outline-red-500`}
           />
         </div>
       </div>
