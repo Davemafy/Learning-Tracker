@@ -1,8 +1,10 @@
-import { createLazyFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import Note from "../../components/Note";
-import { FolderOpenDot } from "lucide-react";
+import { ChevronRightCircleIcon, FolderOpenDot } from "lucide-react";
 import { useRecord } from "../../hooks/useRecord";
-import { useState } from "react";
+import { useCourses } from "../../hooks/useCourses";
+import Form from "../../components/Form";
+import { useTheme } from "../../hooks/useTheme";
 
 export const Route = createLazyFileRoute("/_authenticated/dashboard")({
   component: Dashboard,
@@ -10,7 +12,10 @@ export const Route = createLazyFileRoute("/_authenticated/dashboard")({
 
 function Dashboard() {
   const [record, setRecord] = useRecord();
-  const [selectedCourse, setSelectedCourse] = useState("React Basics");
+  const [courses, setCourses] = useCourses();
+  const [theme] = useTheme();
+
+  const darkMode = theme.current === "dark";
 
   const today = new Date().toLocaleDateString("en-us", {
     year: "numeric",
@@ -20,87 +25,113 @@ function Dashboard() {
 
   const recordEmpty = record.length === 0;
 
-  const userLogged = !recordEmpty && record[0].date === today;
+  const recentNotes = record
+    .slice(0, 3)
+    .reduce((acc, current) => {
+      return acc.concat(current.notes);
+    }, [])
+    .slice(0, 3);
 
-  const recentNotes = record.slice(0, 3).reduce((acc, current) => {
-    return acc.concat(current.notes);
-  }, []);
+  function getTimeSpent(startTime, endTime) {
+    const start = startTime.replace(":", "");
+    const end = endTime.replace(":", "");
+
+    const diff = end - start;
+    console.log(diff);
+    const timeDiff = String(
+      Math.abs(diff) === diff ? diff : diff + 2400,
+    ).padStart(4, 0);
+
+    let format = `${timeDiff[0] === "0" ? timeDiff[1] : timeDiff.slice(0, 2)} ${timeDiff.slice(-2, -1) === "0" ? timeDiff.slice(-1) : timeDiff.slice(-2)}`;
+
+    if (diff < 0) {
+      format = "N/A";
+      console.log(true);
+    } else if (+timeDiff.slice(-2) > 59) {
+      format = `${timeDiff[0] === "0" ? timeDiff[1] : timeDiff.slice(0, 2)} ${timeDiff.slice(-2) - 40}`;
+    }
+
+    return +format.replace(" ", ".");
+  }
 
   function handleSubmit(formData) {
     const newNote = {
       id: crypto.randomUUID(),
       date: today,
       course: formData.get("course"),
+      startTime: formData.get("start-time"),
+      endTime: formData.get("end-time"),
+      timeSpent: getTimeSpent(
+        formData.get("start-time"),
+        formData.get("end-time"),
+      ),
       description: formData.get("description"),
     };
+
+    setCourses(
+      courses.map((course) => {
+        if (course.title === newNote.course) {
+          return { ...course, progress: course.progress + newNote.timeSpent };
+        }
+        return course;
+      }),
+    );
+
+    if (!recordEmpty && record[0].date === today) {
+      if (record.length === 1) {
+        setRecord([
+          { date: record[0].date, notes: [newNote, ...record[0].notes] },
+        ]);
+
+        return;
+      }
+
+      setRecord(
+        [{ date: record[0].date, notes: [newNote, ...record[0].notes] }].concat(
+          record.slice(1),
+        ),
+      );
+      return;
+    }
 
     setRecord([{ date: today, notes: [newNote] }, ...record]);
   }
 
-  function handleSelect(e) {
-    setSelectedCourse(e.target.value);
-  }
-
   return (
     <div className="w-full h-full overflow-auto">
-      <div className="p-8.25 border-b border-grey">
-        <h2 className="text-[1.75rem] font-bold leading-6">Dashboard</h2>
-      </div>
-      <form
-        action={handleSubmit}
-        className="flex flex-col gap-5
-       p-8.5 "
-      >
-        <div className="flex flex-col gap-2">
-          <label htmlFor="course">Courses</label>
-          <div className="dropdown w-fit">
-            <select
-              name="course"
-              id="course"
-              autoFocus
-              onChange={handleSelect}
-              value={selectedCourse}
-              className="border border-grey w-[28ch]  rounded-2xl p-4"
-            >
-              <option value="React Basics">React Basics</option>
-              <option value="Javascript Deep Dive">Javascript Deep Dive</option>
-              <option value="CSS Mastery">CSS Mastery</option>
-              <option value="Frontend Project Workshop">
-                Frontend Project Workshop
-              </option>
-              <option value="TypeScript Fundamentals">
-                TypeScript Fundamentals
-              </option>
-              <option value="Node.js Basics">Node.js Basics</option>
-              <option value="Data Structures & Algorithms">
-                Data Structures & Algorithms
-              </option>
-            </select>
-          </div>
-        </div>
-        <textarea
-          name="description"
-          placeholder="Description..."
-          className="p-6 border border-grey font-medium rounded-2xl"
-        ></textarea>
-        <button
-          type="submit"
-          disabled={userLogged}
-          className="p-4 px-8.25 bg-black text-white w-fit rounded-[0.625rem] font-bold text-base transition hover:shadow-2xl disabled:bg-[#0007] disabled:text-[#eee] disabled:shadow-none"
-        >
-          Log Today
-        </button>
-      </form>
+      <Form record={record} courses={courses} handleSubmit={handleSubmit} />
 
-      <section className="p-8.25 flex flex-col gap-4">
+      <section className="p-8.25 flex flex-col gap-4 ">
         <div className="flex items-center gap-2">
-          <h3 className="text-xl font-bold">Recent</h3> <FolderOpenDot />
+          <div className="flex items-center gap-2">
+            <h3 className="text-xl">Recent</h3> <FolderOpenDot />
+          </div>
+          {!recordEmpty && (
+            <div className="flex justify-end sm:justify-end w-full items-center text-[#0007] hover:text-black">
+              <Link to="/notes">
+                <p className=" flex gap-2 p-4 py-2 border-[#0007]  border rounded-2xl hover:bg-black hover:text-white w-fit">
+                  View all
+                  <ChevronRightCircleIcon fontWeight={300} />
+                </p>
+              </Link>
+            </div>
+          )}
         </div>
-        <ul className="grid sm:grid-cols md:grid-cols-3  gap-4 flex-wrap">
+        <ul
+          className={`grid sm:grid-cols gap-4 flex-wrap md:grid-cols-2 ${recentNotes.length === 3 ? "md:grid-cols-3" : ""}`}
+        >
           {!recordEmpty ? (
-            recentNotes.map((note, index) => <Note key={index} note={note} />)
+            <>
+              {recentNotes.map((note, index) => (
+                <Note key={index} note={note} className={""} />
+              ))}
+            </>
           ) : (
-            <p className="text-[#0009]">No recents found.</p>
+            <li>
+              <p className={`${darkMode ? "text-darkgrey" : "text-[#0009]"}`}>
+                No recents found.
+              </p>
+            </li>
           )}
         </ul>
       </section>

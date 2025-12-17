@@ -1,15 +1,26 @@
-import { CheckCheck, Flame } from "lucide-react";
+import { CheckCheck, FlameKindlingIcon } from "lucide-react";
 
-const Streak = () => {
+const Streak = ({ sidebarOpen }) => {
   return (
-    <div className="md:w-60 flex  md:flex-col gap-3 p-6.25 px-8.25 md:p-10  text-[0.95rem] border-r border-grey">
-      <div className="flex items-center gap-4 opacity-40 font-bold">
-        <p className="hidden md:block">Logged Today</p>
+    <div
+      className={`flex  flex-col gap-4 md:gap-8.75 py-6.25  md:p-0 md:py-10 sm:border-b border-grey `}
+    >
+      <div className="flex items-center gap-2 opacity-50 font-medium">
         <CheckCheck />
+        <p>
+          <span className={`${!sidebarOpen ? "hidden" : ""} md:inline`}>
+            Logged Today
+          </span>
+          <span className="hidden md:inline"></span>
+        </p>
       </div>
-      <div className="flex items-center gap-4 font-bold">
-        <p className="hidden md:block">7-day streak</p>
-        <Flame />
+      <div className="flex items-center gap-2 font-medium">
+        <FlameKindlingIcon />
+        <p>
+          <span className={`${!sidebarOpen ? "hidden" : ""} md:inline`}>
+            0-day streak
+          </span>
+        </p>
       </div>
     </div>
   );

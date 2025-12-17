@@ -1,4 +1,4 @@
-import { createLazyFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import { FolderOpenDot } from "lucide-react";
 import Note from "../../components/Note";
 import { useRecord } from "../../hooks/useRecord";
@@ -13,19 +13,23 @@ function Notes() {
 
   return (
     <div className="w-full h-full overflow-auto">
-      <div className="p-8.25 border-b border-grey">
-        <h2 className="text-[1.75rem] font-bold leading-6">Notes</h2>
-      </div>
+      {record.length == 0 && (
+        <p className="p-8.25 border-b border-grey opacity-65">No notes yet.</p>
+      )}
 
       {record.map((record, index) => (
         <section key={index} className="p-8.25 flex flex-col gap-4">
           <div className="flex items-center gap-2">
-            <h3 className="text-xl font-bold">{formatDate(record.date)}</h3>
+            <h3 className="text-xl font-medium">{formatDate(record.date)}</h3>
             <FolderOpenDot />
           </div>
-          <ul className="grid sm:grid-cols-2 md:grid-cols-3  gap-4 flex-wrap">
-            {record.notes.map((note) => (
-              <Note key={note.id} note={note} />
+          <ul className="grid sm:grid-cols md:grid-cols-3 gap-4 flex-wrap">
+            {record.notes.map((note, index, notes) => (
+              <Note
+                key={note.id}
+                className={notes.length === 1 ? "sm:max-w-[70%]" : ""}
+                note={note}
+              />
             ))}
           </ul>
         </section>

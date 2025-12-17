@@ -1,11 +1,14 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import { ThemeProvider } from "../contexts/ThemeContext";
 
 export const Route = createRootRoute({
   component: () => {
     return (
       <>
-        <Outlet />
+        <ThemeProvider>
+          <Outlet />
+        </ThemeProvider>
         <TanStackRouterDevtools />
       </>
     );

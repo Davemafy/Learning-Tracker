@@ -17,18 +17,26 @@ body {
   font-variation-settings: "wdth" 100;
 }
 
-#root {
-  display: grid;
-  height: 100vh;
-  height: 100dvh;
-  grid-template-rows: min-content 1fr;
+.setup.darkmode {
+  --color-grey: #393939;
+}
+
+.darkmode::-webkit-calendar-picker-indicator {
+  /* This filter turns the icon white */
+  filter: invert(100%);
+}
+
+
+.setup {
+ display: flex;
+ height: 100vh;
+ overflow: hidden ;
 }
 
 select {
   appearance: none;
   cursor: pointer;
 }
-
 .dropdown {
   position: relative;
 }
@@ -45,13 +53,27 @@ select {
 .dropdown::before {
   border-left: var(--size) solid transparent;
   border-right: var(--size) solid transparent;
-  border-bottom: var(--size) solid black;
+  border-bottom: var(--size) solid ;
   top: 40%;
 }
 
 .dropdown::after {
   border-left: var(--size) solid transparent;
   border-right: var(--size) solid transparent;
-  border-top: var(--size) solid black;
+  border-top: var(--size) solid;
   top: 55%;
+}
+
+.truncate-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.truncate-multiline {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
 }
