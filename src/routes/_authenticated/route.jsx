@@ -27,7 +27,7 @@ function Setup() {
         <RecordProvider>
           <Sidebar sidebarOpen={sidebarOpen} closeSideBar={closeSideBar} />
           <div className="w-full h-full flex flex-col">
-            <Header toogleSidebar={toogleSidebar} />
+            <Header sidebarOpen={sidebarOpen} toogleSidebar={toogleSidebar} />
             <CoursesProvider>
               <main className="flex-1 w-full overflow-auto">
                 <Outlet />

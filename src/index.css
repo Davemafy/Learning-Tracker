@@ -2,8 +2,52 @@
 
 @theme {
   --color-grey: #dcdcdc;
+  --color-accent: #f6f6f6;
   --color-darkgrey: #a9a9a9;
+  --text-xs: 0.75rem;
+  --breakpoint-xlg: 70rem;
+  --breakpoint-xm: 56rem;
+  --breakpoint-xs: 25rem;
 }
+
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+   /* Custom scrollbar styles (WebKit) */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 11rem; /* vertical scrollbar width */
+    height: 11rem; /* horizontal scrollbar height */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-black rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-black;
+  }
+
+  /* Custom scrollbar styles (Firefox) */
+  .custom-scrollbar {
+    scrollbar-width: thin; /* "auto" or "thin" */
+    scrollbar-color: theme('colors.black') theme('colors.gray.200'); /* thumb and track color */
+  }
+
+}
+
 
 @font-face {
   font-family: "Mona Sans";
@@ -17,6 +61,16 @@ body {
   font-variation-settings: "wdth" 100;
 }
 
+button {
+  cursor: pointer;
+}
+
+@media (width >= 70rem) {
+  .grid-dashboard {
+    grid-template-columns: 1fr 0.55fr;
+  }
+}
+
 .setup.darkmode {
   --color-grey: #393939;
 }
@@ -26,11 +80,11 @@ body {
   filter: invert(100%);
 }
 
-
 .setup {
- display: flex;
- height: 100vh;
- overflow: hidden ;
+  display: flex;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
 }
 
 select {
@@ -53,7 +107,7 @@ select {
 .dropdown::before {
   border-left: var(--size) solid transparent;
   border-right: var(--size) solid transparent;
-  border-bottom: var(--size) solid ;
+  border-bottom: var(--size) solid;
   top: 40%;
 }
 

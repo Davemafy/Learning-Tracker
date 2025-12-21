@@ -1,68 +1,77 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { Book, Gauge, Settings, StickyNote } from "lucide-react";
+import { Book, BookOpenText, Gauge, Home, LibraryBig, Settings, StickyNote } from "lucide-react";
 import Streak from "./Streak";
 
-const Sidebar = ({ sidebarOpen, closeSideBar}) => {
+const Sidebar = ({ sidebarOpen, closeSideBar }) => {
   const activeTab = useLocation({ select: (location) => location.pathname });
 
   return (
     <aside
-      className={`flex transition sm:transition-none flex-col shrink-0 bg-inherit h-full fixed top-0 z-100 sm:static border-r border-grey w-fit md:w-60 ${!sidebarOpen ? "-translate-x-full sm:translate-0" : "sm:w-60"}`}
+      className={`p-4 flex transition text-[0.8rem]  sm:transition-none flex-col shrink-0 bg-inherit h-full fixed top-0 z-100 sm:static  w-fit md:w-fit ${!sidebarOpen ? "-translate-x-full sm:translate-0" : "sm:w-60"}`}
     >
-      <h2
-        className={`p-8.25 py-8.25 text-2xl font-medium ${!sidebarOpen ? "w-[2ch] md:w-fit truncate" : ""}`}
-      >
-        TO<span className="text-amber-4 600 font-black">DAY</span>
-      </h2>
-      <ul className="flex-1 flex flex-col gap-2 p-6.25  sm:px-4.5 md:px-5.75   sm:mt-0">
-        <li onClick={closeSideBar}>
-          <Link
-            className={`flex gap-2 font-medium  p-4 rounded-2xl ${activeTab == "/dashboard" ? "bg-inherit" : "opacity-60"}`}
-            to="/dashboard"
+      <div className="flex flex-col h-full   bg-black text-white rounded-xl">
+        <Link to={"/dashboard"}>
+          <h2
+            className={`p-6.25 py-5.75 h-fit text-xl b  flex items-center gap-2 ${!sidebarOpen ? "w-[2ch]  md:w-full" : ""}`}
           >
-            <Gauge />
-            <p className={`${sidebarOpen ? "" : "sm:hidden"}  md:block`}>
-              Dashboard
-            </p>
-          </Link>
-        </li>
-        <li onClick={closeSideBar}>
-          <Link
-            className={`flex gap-2 font-medium  p-4 rounded-2xl ${activeTab == "/courses" ? "bg-inherit" : "opacity-60"}`}
-            to="/courses"
-          >
-            <Book />
-            <p className={`${sidebarOpen ? "" : "sm:hidden"}  md:block`}>
-              Courses
-            </p>
-          </Link>
-        </li>
-        <li onClick={closeSideBar}>
-          <Link
-            className={`flex gap-2 font-medium  p-4 rounded-2xl ${activeTab == "/notes" ? "bg-inherit" : "opacity-60"}`}
-            to="/notes"
-          >
-            <StickyNote />
-            <p className={`${sidebarOpen ? "" : "sm:hidden"} md:block`}>
-              Notes
-            </p>
-          </Link>
-        </li>
-        <li className="mt-auto p-4">
-          <Streak sidebarOpen={sidebarOpen} />
-        </li>
-        <li onClick={closeSideBar} className="">
-          <Link
-            className={`flex gap-2 font-medium  p-4 rounded-2xl ${activeTab == "/settings" ? "bg-inherit" : "opacity-60"}`}
-            to="/settings"
-          >
-            <Settings />
-            <p className={`${sidebarOpen ? "" : "sm:hidden"} md:block`}>
-              Settings
-            </p>
-          </Link>
-        </li>
-      </ul>
+            <img src="icon.svg" alt="logo" className=" h-10" size={20} />
+          </h2>
+        </Link>
+        <ul className="h-full flex flex-col p-6 px-4 gap-2 pr-10">
+          <li onClick={closeSideBar}>
+            <Link
+              className={`flex gap-2 items-center  p-4 py-3  rounded-xl hover:bg-[#333] hover:text-[#eee] transition ${activeTab == "/dashboard" ? "bg-[#333] text-[#eee] " : "opacity-45"}`}
+              to="/dashboard"
+            >
+              <Home size={20} />
+              <p
+                className={`${sidebarOpen ? "" : "sm:hidden"}  md:block font-semibold`}
+              >
+                Dashboard
+              </p>
+            </Link>
+          </li>
+          <li onClick={closeSideBar}>
+            <Link
+              className={`flex gap-2 items-center  p-4 py-3  rounded-xl hover:bg-[#333] hover:text-[#eee] transition ${activeTab == "/courses" ? "bg-[#333] text-[#eee] " : "opacity-45"}`}
+              to="/courses"
+            >
+              <LibraryBig size={20} />
+              <p
+                className={`${sidebarOpen ? "" : "sm:hidden"}  md:block font-semibold`}
+              >
+                Courses
+              </p>
+            </Link>
+          </li>
+          <li onClick={closeSideBar}>
+            <Link
+              className={`flex gap-2 items-center  p-4 py-3  rounded-xl hover:bg-[#333] hover:text-[#eee] transition ${activeTab == "/notes" ? "bg-[#333] text-[#eee] " : "opacity-45"}`}
+              to="/notes"
+            >
+              <BookOpenText size={20} />
+              <p
+                className={`${sidebarOpen ? "" : "sm:hidden"} md:block font-semibold`}
+              >
+                Notes
+              </p>
+            </Link>
+          </li>
+          <li onClick={closeSideBar} className="mt-auto">
+            <Link
+              className={`flex gap-2 items-center  p-4 py-3  rounded-xl hover:bg-[#333] hover:text-[#eee] transition ${activeTab == "/settings" ? "bg-[#333] text-[#eee] " : "opacity-45"}`}
+              to="/settings"
+            >
+              <Settings size={20} />
+              <p
+                className={`${sidebarOpen ? "" : "sm:hidden"} md:block font-semibold`}
+              >
+                Settings
+              </p>
+            </Link>
+          </li>
+        </ul>
+      </div>
     </aside>
   );
 };

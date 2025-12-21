@@ -14,20 +14,22 @@ function useSemiPersistentState(key, initialValue) {
 }
 
 export const CoursesProvider = ({ children }) => {
-  const defaultCourses = [
-    { title: "React Basics", duration: 100, progress: 0 },
-    { title: "Javascript Deep Dive", duration: 100, progress: 0 },
-    { title: "CSS Mastery", duration: 100, progress: 0 },
-    { title: "Frontend Project Workshop", duration: 100, progress: 0 },
-    { title: "TypeScript Fundamentals", duration: 100, progress: 0 },
-    { title: "Node.js Basics", duration: 100, progress: 0 },
-    { title: "Data Structures & Algorithms", duration: 100, progress: 0 },
-  ];
+  const [courses, setCourses] = useSemiPersistentState("courses", []);
 
-  const coursesHook = useSemiPersistentState("courses", defaultCourses);
+  useEffect(() => {
+    const defaultCourses = async () => {
+      const response = await fetch(`/api/courses`);
+      const data = await response.json();
+      console.log(data);
+      
+      setCourses(data);
+    };
+
+    !(courses.length > 0) && defaultCourses();
+  }, [courses, setCourses]);
 
   return (
-    <CoursesContext.Provider value={coursesHook}>
+    <CoursesContext.Provider value={[courses, setCourses]}>
       {children}
     </CoursesContext.Provider>
   );

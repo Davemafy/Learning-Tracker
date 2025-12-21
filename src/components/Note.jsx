@@ -1,17 +1,5 @@
 
 const Note = ({ note, className }) => {
-  function minutesSpent(startTime, endTime) {
-    const start = startTime.split(":");
-    const end = endTime.split(":");
-    const format = `${end[0] - start[0]}hr ${end[1] - start[1]}min`;
-
-    if (end[0] - start[0] === 0) {
-      return `${end[1] - start[1]}min`;
-    }
-
-    return format;
-  }
-
   return (
     <li
       className={`flex flex-col gap-2 p-4 border border-grey rounded-[0.625rem] ${className || ""}`}
@@ -19,7 +7,7 @@ const Note = ({ note, className }) => {
       <div className="flex gap-2 justify-between">
         <p className="text-[0.8125rem] opacity-50 font-medium">{note.date}</p>
         <p className="text-[0.77rem] opacity-50  flex gap-0.5">
-          <span>{minutesSpent(note.startTime, note.endTime)}</span>
+          <span>{note.duration}</span>
         </p>
       </div>
       <h4 className="font-medium">{note.course}</h4>

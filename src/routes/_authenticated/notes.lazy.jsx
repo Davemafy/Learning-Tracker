@@ -6,6 +6,11 @@ import Sidebar from "../../components/Sidebar";
 
 export const Route = createLazyFileRoute("/_authenticated/notes")({
   component: Notes,
+  pendingComponent: () => {
+    return (
+      <p>Loading ...</p>
+    )
+  }
 });
 
 function Notes() {
@@ -14,7 +19,14 @@ function Notes() {
   return (
     <div className="w-full h-full overflow-auto">
       {record.length == 0 && (
-        <p className="p-8.25 border-b border-grey opacity-65">No notes yet.</p>
+        <div>
+          <figure className="p-8.25 flex flex-col items-center justify-center">
+            <img src="/assets/img/file-search.svg" className="h-40 grayscale" alt="" />
+          <p className="p-8.25 border-0 text-center border-grey opacity-65">
+            No notes yet.
+          </p>
+          </figure>
+        </div>
       )}
 
       {record.map((record, index) => (
