@@ -1,9 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-grey: #dcdcdc;
-  --color-accent: #f6f6f6;
+  --color-grey: #e5e7eb;
+  --color-accent: #6d6d6d;
   --color-darkgrey: #a9a9a9;
+  --color-dark: #181818;
   --text-xs: 0.75rem;
   --breakpoint-xlg: 70rem;
   --breakpoint-xm: 56rem;
@@ -14,6 +15,9 @@
 }
 
 @layer utilities {
+  body {
+    @apply text-dark;
+  }
   /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -25,7 +29,7 @@
     scrollbar-width: none;
   }
 
-   /* Custom scrollbar styles (WebKit) */
+  /* Custom scrollbar styles (WebKit) */
   .custom-scrollbar::-webkit-scrollbar {
     width: 11rem; /* vertical scrollbar width */
     height: 11rem; /* horizontal scrollbar height */
@@ -46,26 +50,179 @@
   /* Custom scrollbar styles (Firefox) */
   .custom-scrollbar {
     scrollbar-width: thin; /* "auto" or "thin" */
-    scrollbar-color: theme('colors.black') theme('colors.gray.200'); /* thumb and track color */
+    scrollbar-color: theme("colors.black") theme("colors.gray.200"); /* thumb and track color */
   }
-
 }
 
+@font-face {
+  font-family: "Uncut Sans";
+  src: url("/assets/fonts/UncutSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  font-optical-sizing: auto;
+  font-family:
+    "Uncut Sans",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+  font-feature-settings:
+    "liga" 0,
+    "ss02",
+    "ss07";
+  font-variation-settings: normal;
+}
 
 @font-face {
-  font-family: "Mona Sans";
-  src: url("/assets/fonts/MonaSans.ttf") format("truetype");
+  font-family: "Uncut Sans";
+  src: url("/assets/fonts/UncutSans-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
   font-display: swap;
+  font-optical-sizing: auto;
+  font-family:
+    "Uncut Sans",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+  font-feature-settings:
+    "liga" 0,
+    "ss02",
+    "ss07";
+  font-variation-settings: normal;
+}
+
+@font-face {
+  font-family: "Uncut Sans";
+  src: url("/assets/fonts/UncutSans-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  font-optical-sizing: auto;
+  font-family:
+    "Uncut Sans",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+  font-feature-settings:
+    "liga" 0,
+    "ss02",
+    "ss07";
+  font-variation-settings: normal;
+}
+
+@font-face {
+  font-family: "Uncut Sans";
+  src: url("/assets/fonts/UncutSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  font-optical-sizing: auto;
+  font-family:
+    "Uncut Sans",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+  font-feature-settings:
+    "liga" 0,
+    "ss02",
+    "ss07";
+  font-variation-settings: normal;
 }
 
 body {
-  font-family: "Mona Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
+  font-family: "Uncut Sans", sans-serif;
+  position: relative;
+    font-optical-sizing: auto;
+  font-family:
+    "Uncut Sans",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+  font-feature-settings:
+    "liga" 0,
+    "ss02",
+    "ss07";
+  font-variation-settings: normal;
+
 }
 
 button {
   cursor: pointer;
+}
+
+.shapes-pos {
+  height: 2380px;
+  margin-top: -40px;
+  object-fit: cover;
+  width: 1608px;
+}
+
+.bg-home-shapes {
+  background-image: url("/assets/img/home-shapes-full.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 90% 0%;
+}
+
+.outline-all,
+.outline-all * {
+  outline: 1px solid blueviolet;
 }
 
 @media (width >= 70rem) {
