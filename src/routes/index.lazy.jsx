@@ -36,36 +36,46 @@ function Index() {
               <img src="/assets/img/brillo.svg" alt="brillo" className="h-6" />
             </div>
             <div className=" flex justify-end gap-2 ">
-              <Link to="/login" className="text-[14px] sm:text-base hidden sm:block border bg-white border-grey font-medium px-4 sm:px-6 py-2 rounded-[6.25rem]">
+              <Link
+                to="/login"
+                className="text-[14px] sm:text-base hidden sm:block border bg-white border-grey font-medium px-4 sm:px-6 py-2 rounded-[6.25rem]"
+              >
                 Login
               </Link>
-              <Link to="/signup" className="text-[14px] sm:text-base text-white whitespace-nowrap bg-dark font-medium px-4 sm:px-6 py-2 rounded-[6.25rem]">
+              <Link
+                to="/signup"
+                className="text-[14px] sm:text-base text-white whitespace-nowrap bg-dark font-medium px-4 sm:px-6 py-2 rounded-[6.25rem]"
+              >
                 Sign up
               </Link>
             </div>
           </nav>
         </header>
         <section className="h-full py-8 px-6 sm:py-24  sm:grid place-items-center">
-          <div className="grid gap-9.5">
+          <div className="flex flex-col gap-9.5">
             <div className="grid place-items-center gap-5.5">
-              <h1 className="text-[2.5rem] leading-12 tracking-[-0.075rem] sm:text-[4.5rem] font-bold max-w-[8ch] sm:max-w-[9ch] sm:leading-[72px]">
+              <h1 className="text-[3rem] leading-12 tracking-[-0.075rem] sm:text-[4.5rem] font-bold max-w-[8ch] sm:max-w-[9ch] sm:leading-[72px]">
                 Don’t let learning get in the way
               </h1>
-              <p className="text-lightgrey text-sm  sm:text-[1.25rem] max-w-[35ch] sm:max-w-[40ch] leading-7">
+              <p className="text-lightgrey text-base  sm:text-[1.25rem] max-w-[27ch] sm:max-w-[40ch] leading-7">
                 Keep all your course notes and progress organized in one place.
                 Brillo helps you stay consistent, so you never lose track of
-                what you’ve learned — even when life gets busy.
+                what you’ve learned — even when life gets
+                <span className="italic"> busy</span>.
               </p>
             </div>
             <div>
-              <Link to="/signup" className="font-semibold text-white text-base sm:text-xl bg-dark px-12 py-4 rounded-[6.25rem]">
+              <Link
+                to="/signup"
+                className=" block w-fit mx-auto font-semibold text-white text-base sm:text-xl bg-dark px-12 py-4 rounded-[6.25rem]"
+              >
                 Try Brillo free
               </Link>
             </div>
           </div>
         </section>
       </div>
-      <section className="flex items-center justify-center">
+      <section className="flex items-center pt-8 justify-center">
         <div className="relative mx-auto max-w-[800px] w-auto">
           <img
             src="/assets/img/brillo-phones.png"
@@ -76,8 +86,10 @@ function Index() {
       </section>
       <section on className="grid place-content-center px-6 py-24">
         <div className="flex flex-col items-center gap-11.5">
-          <div className="flex flex-col gap-3">
-            <h2 className="text-[2.25rem] font-bold">Here’s how it works</h2>
+          <div className="flex flex-col items-center gap-3">
+            <h2 className="text-[2.25rem] leading-10 tracking-[-0.9px] max-w-[7ch] md:max-w-full font-bold">
+              Here’s how it works
+            </h2>
             <p className="text-lightgrey text-xl ">
               Learn smarter, remember better.
             </p>
@@ -120,7 +132,10 @@ function Index() {
               </p>
             </article>
           </div>
-          <Link to="/signup" className="bg-dark text-white font-semibold px-12 py-4 rounded-[6.25rem]">
+          <Link
+            to="/signup"
+            className="bg-dark text-white font-semibold px-12 py-4 rounded-[6.25rem]"
+          >
             Start learning today
           </Link>
         </div>
