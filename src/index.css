@@ -6,7 +6,7 @@
   --color-lightgrey: #6d6d6d;
   --color-darkgrey: #a9a9a9;
   --color-dark: #181818;
-  --font-monasans: "Mona Sans";
+  --font-monasans: "Mona Sans", "Uncut Sans", "system-ui";
   --text-xs: 0.75rem;
   --breakpoint-xlg: 70rem;
   --breakpoint-xm: 56rem;
